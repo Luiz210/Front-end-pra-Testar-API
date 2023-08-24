@@ -1,0 +1,46 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+header {
+    background-color: #FF3333; 
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+button {
+    background-color: #FF6666; 
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+h2 {
+    color: #FF3333; 
+}
+
+
+footer {
+    background-color: #000; 
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
