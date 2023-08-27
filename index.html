@@ -13,15 +13,124 @@
         <h2>Carros</h2>
         <button id="carregarCarros">Carregar Carros</button>
         <ul id="carrosList"></ul>
+    </div>
 
-        <h2>Usuários</h2>
+    <div class="container">
+        <h3>Cadastrar Carro</h3>
+        <form id="cadastrarCarro">
+            <label for="Id">Id:</label>
+            <input type="number" id="ID" required><br>
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required><br>
+
+            <label for="ano">Ano:</label>
+            <input type="number" id="ano" required><br>
+
+            <label for="combustivel">Combustível:</label>
+            <input type="text" id="combustivel" required><br>
+
+            <label for="cor">Cor:</label>
+            <input type="text" id="cor" required><br>
+
+            <label for="motor">Motor:</label>
+            <input type="text" id="motor" required><br>
+
+            <label for="potencia">Potência:</label>
+            <input type="number" id="potencia" required><br>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h4>Deletar Carro</h2>
+        <label for="carroId">ID do Carro:</label>
+        <input type="number" id="carroId" placeholder="ID">
+        <br>
+        <button id="deletarCarro">Deletar Carro</button>
+    </div>
+
+    <div class="container">
+        <h5>Atualizar Carro</h2>
+        <label for="carroIdAtualizar">ID do Carro:</label>
+        <input type="number" id="carroIdAtualizar" placeholder="ID">
+        <br>
+        <label for="novoNomeCarro">Novo Nome:</label>
+        <input type="text" id="novoNomeCarro" placeholder="Novo Nome">
+        <br>
+        <label for="novoAnoCarro">Novo Ano:</label>
+        <input type="number" id="novoAnoCarro" placeholder="Novo Ano">
+        <br>
+        <label for="novoCombustivelCarro">Novo Combustível:</label>
+        <input type="text" id="novoCombustivelCarro" placeholder="Novo Combustível">
+        <br>
+        <label for="novaCorCarro">Nova Cor:</label>
+        <input type="text" id="novaCorCarro" placeholder="Nova Cor">
+        <br>
+        <label for="novoMotorCarro">Novo Motor:</label>
+        <input type="text" id="novoMotorCarro" placeholder="Novo Motor">
+        <br>
+        <label for="novaPotenciaCarro">Nova Potência:</label>
+        <input type="number" id="novaPotenciaCarro" placeholder="Nova Potência">
+        <br>
+        <button id="atualizarCarro">Atualizar Carro</button>
+    </div>
+
+    <div class="container">
+        <h6>Lista de Usuários</h1>
         <button id="carregarUsuarios">Carregar Usuários</button>
         <ul id="usuariosList"></ul>
     </div>
 
-    <footer>
-        Desenvolvido por Luiz Fernando
-    </footer>
+    <div class="container">
+        <h1>Cadastrar Usuario</h1>
+        <form id="cadastrarUsuario">
+            <label for="ID">Id:</label>
+            <input type="number" id="UID" required><br>
+
+            <label for="Nome">Nome:</label>
+            <input type="text" id="Unome" required><br>
+
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" required><br>
+
+            <label for="Senha">Senha:</label>
+            <input type="text" id="Senha" required><br>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1>Deletar Usuário</h1>
+        <form id="deletarUsuario">
+            <label for="usuarioId">ID do Usuário:</label>
+            <input type="text" id="usuarioId" required><br>
+    
+            <button type="button" id="deletarUsuario">Deletar</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1>Atualizar Usuário</h1>
+        <form id="atualizarUsuario">
+            <label for="usuarioIdAtualizar">ID do Usuário:</label>
+            <input type="text" id="usuarioIdAtualizar" required><br>
+    
+            <label for="novoNomeUsuario">Novo Nome de Usuário:</label>
+            <input type="text" id="novoNomeUsuario" required><br>
+    
+            <label for="novaSenha">Nova Senha:</label>
+            <input type="text" id="novaSenha" required><br>
+    
+            <label for="novoEmail">Novo Email:</label>
+            <input type="text" id="novoEmail" required><br>
+    
+            <button type="button" id="atualizarUsuario">Atualizar</button>
+        </form>
+    </div>
+    
 
     <script src="script.js"></script>
 </body>
