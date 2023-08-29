@@ -1,17 +1,44 @@
 const apiUrl = 'https://localhost:7242';
-
-document.getElementById('carregarCarros').addEventListener('click', async () => {
-    const response = await fetch(`${apiUrl}/api/Carros`); 
-    const data = await response.json();
-
-    const carrosList = document.getElementById('carrosList');
-    carrosList.innerHTML = '';
-
-    data.forEach(carro => {
-        const carroItem = document.createElement('li');
-        carroItem.innerText = `ID: ${carro.id}, Nome: ${carro.nome}, Ano: ${carro.ano}, Combustível: ${carro.combustivel}
-        ,Cor: ${carro.cor}, Motor: ${carro.motor}, Potencia ${carro.potencia}`;
-        carrosList.appendChild(carroItem);
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('carregarCarros').addEventListener('click', async () => {
+        const response = await fetch(`${apiUrl}/api/Carros`); 
+        const data = await response.json();
+    
+        const carrosList = document.getElementById('carrosList');
+        carrosList.innerHTML = '';
+    
+        data.forEach(async carro => {
+            const carroItem = document.createElement('li');
+            carroItem.innerHTML = `
+                <p>ID: ${carro.id}</p>
+                <p>Nome: ${carro.nome}</p>
+                <p>Ano: ${carro.ano}</p>
+                <p>Combustível: ${carro.combustivel}</p>
+                <p>Cor: ${carro.cor}</p>
+                <p>Motor: ${carro.motor}</p>
+                <p>Potência: ${carro.potencia}</p>
+                <p>Preço: ${carro.preco}</p>
+                <img src="" alt="Imagem do Carro">
+            `;
+    
+            const imagemResponse = await fetch(`${apiUrl}/api/Carros/${carro.id}/Imagem`); 
+            if (imagemResponse.ok) {
+                const imagemBlob = await imagemResponse.blob();
+                const imagemUrl = URL.createObjectURL(imagemBlob);
+                const imagemElement = carroItem.querySelector('img');
+                imagemElement.src = imagemUrl;
+            } else {
+                console.error('Erro ao carregar a imagem do carro.');
+            }
+    
+            carrosList.appendChild(carroItem);
+            
+            if (response.ok) {
+                console.log('Carro carregado com sucesso.');
+            } else {
+                console.error('Erro ao carregar o carro.');
+            }
+        });
     });
 
     document.getElementById('cadastrarCarro').addEventListener('submit', async (e) => {
@@ -24,6 +51,7 @@ document.getElementById('carregarCarros').addEventListener('click', async () => 
         const cor = document.getElementById('cor').value;
         const motor = document.getElementById('motor').value;
         const potencia = document.getElementById('potencia').value;
+        const preco = document.getElementById('preco').value;
     
         const novoCarro = {
             Id: parseInt(Id),
@@ -32,7 +60,8 @@ document.getElementById('carregarCarros').addEventListener('click', async () => 
             combustivel: combustivel,
             cor: cor,
             motor: motor,
-            potencia: potencia
+            potencia: potencia,
+            preco: preco
         };
     
         const response = await fetch(`${apiUrl}/api/Carros`, {
@@ -52,7 +81,6 @@ document.getElementById('carregarCarros').addEventListener('click', async () => 
     
 });
 
-document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deletarCarro').addEventListener('click', async () => {
         const carroId = document.getElementById('carroId').value;
 
@@ -71,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao deletar o carro.');
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
+
+
     document.getElementById('atualizarCarro').addEventListener('click', async () => {
         const carroId = document.getElementById('carroIdAtualizar').value;
         const novoNome = document.getElementById('novoNomeCarro').value;
@@ -82,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const novaCor = document.getElementById('novaCorCarro').value;
         const novoMotor = document.getElementById('novoMotorCarro').value;
         const novaPotencia = document.getElementById('novaPotenciaCarro').value;
+        const novoPreco = document.getElementById('novoPreco').value;
 
         const carroAtualizado = {
             id: parseInt(carroId),
@@ -90,7 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
             combustivel: novoCombustivel,
             cor: novaCor,
             motor: novoMotor,
-            potencia: parseInt(novaPotencia)
+            potencia: parseInt(novaPotencia),
+            preco: (novoPreco)
         };
 
         const response = await fetch(`${apiUrl}/api/Carros/${carroAtualizado.id}`, {
@@ -107,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao atualizar o carro.');
         }
     });
-});
 
 document.getElementById('carregarUsuarios').addEventListener('click', async () => {
         const response = await fetch(`${apiUrl}/api/Usuarios`);
@@ -121,6 +150,11 @@ document.getElementById('carregarUsuarios').addEventListener('click', async () =
             usuarioItem.innerText = `ID: ${usuario.id}, Nome de Usuário: ${usuario.nomeUsuario}, Email: ${usuario.email}`;
             usuariosList.appendChild(usuarioItem);
         });
+        if (response.ok) {
+            console.log('Usuario cadastrado com sucesso.');
+        } else {
+            console.error('Erro ao cadastrar o Usuario.');
+        }
 });
 
 document.getElementById('cadastrarUsuario').addEventListener('submit', async (e) => {
@@ -153,7 +187,7 @@ document.getElementById('cadastrarUsuario').addEventListener('submit', async (e)
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+
     document.getElementById('deletarUsuario').addEventListener('click', async () => {
         const usuarioId = document.getElementById('usuarioId').value;
 
@@ -172,9 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao deletar o usuário.');
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
+
     document.getElementById('atualizarUsuario').addEventListener('click', async () => {
         const usuarioId = document.getElementById('usuarioIdAtualizar').value;
         const novoNomeUsuario = document.getElementById('novoNomeUsuario').value;
@@ -202,4 +235,30 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao atualizar o usuário.');
         }
     });
+
+document.getElementById('adicionarImagemForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const carroIdImagem = document.getElementById('carroIdImagem').value;
+    const imagemCarro = document.getElementById('imagemCarro').files[0];
+
+    if (!carroIdImagem || !imagemCarro) {
+        console.error('Preencha todos os campos.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', imagemCarro);
+
+    const response = await fetch(`${apiUrl}/api/Carros/${carroIdImagem}/UploadImagem`, {
+        method: 'POST',
+        body: formData
+    });
+
+    if (response.ok) {
+        console.log('Imagem enviada com sucesso.');
+    } else {
+        console.error('Erro ao enviar a imagem.');
+    }
 });
+
